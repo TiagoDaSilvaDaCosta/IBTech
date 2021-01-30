@@ -1,0 +1,45 @@
+pallets = list()
+gavetas = dict()
+caixas = list()
+
+while True:
+    gavetas.clear()
+    gavetas['nome'] = str(input('De um nome para gaveta: '))
+    tot = int(input(f'Quantos pallets tem na gaveta {gavetas["nome"]}? '))
+    caixas.clear()
+    for c in range(0, tot):
+        caixas.append(int(input(f'   Quantas caixas tem no pallet {c+1}? ')))
+    gavetas['caixas'] = caixas[:]
+    gavetas['total'] = sum(caixas)
+    pallets.append(gavetas.copy())
+    while True:
+        resp = str(input('Quer continuar?  [S/N]  ')).upper()[0]
+        if resp in 'SN':
+            break
+        print('ERRO! Responda apenas S ou N.')
+    if resp == 'N':
+        break
+print('-=' * 30)
+print('cod ', end='')
+for i in gavetas.keys():
+    print(f'{i:<15}', end='')
+print()
+print('-' * 40)
+for k, v in enumerate(pallets):
+    print(f'{k:>3} ', end='')
+    for d in v.values():
+        print(f'{str(d):<15}', end='')
+    print()
+print('-' * 40)
+while True:
+    busca = int(input('Mostrar dados de qual gaveta? (999 para parar) '))
+    if busca == 999:
+        break
+    if busca >= len(pallets):
+        print(f'ERRO! Não existem gavetas com esse código {busca}!')
+    else:
+        print(f' -- Levantamento da gaveta {pallets[busca]["nome"]}:')
+        for i, g in enumerate(pallets[busca]['caixas']):
+            print(f'  No pallet {i+1} tem {g} caixas.')
+    print('-' * 40)
+print('<< Sistema que controla caixas e pallets, em gavetas.>>')
